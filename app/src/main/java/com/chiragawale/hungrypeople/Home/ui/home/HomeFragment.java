@@ -7,18 +7,22 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.SearchEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
 import com.chiragawale.hungrypeople.Home.Item;
 import com.chiragawale.hungrypeople.R;
+import com.iammert.library.ui.multisearchviewlib.MultiSearchView;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
@@ -39,7 +43,35 @@ public class HomeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.home_fragment, container, false);
 
-        ListView listView=v.findViewById(R.id.mainListView);
+        //EditText editText=v.findViewById(R.id.et_search);
+       ListView listView=v.findViewById(R.id.mainListView);
+        MultiSearchView multiSearchView=v.findViewById(R.id.et_multisearch);
+
+        multiSearchView.setSearchViewListener(new MultiSearchView.MultiSearchViewListener() {
+                                                  @Override
+                                                  public void onTextChanged(int i, CharSequence charSequence) {
+
+                                                  }
+
+                                                  @Override
+                                                  public void onSearchComplete(int i, CharSequence charSequence) {
+
+
+                                                  }
+
+                                                  @Override
+                                                  public void onSearchItemRemoved(int i) {
+
+                                                  }
+
+                                                  @Override
+                                                  public void onItemSelected(int i, CharSequence charSequence) {
+
+                                                  }
+                                              }
+        );
+
+        listView.setVisibility(View.INVISIBLE);
 
         final List<Item> items = Item.getTestingList();
 
