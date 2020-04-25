@@ -17,15 +17,31 @@ public class FoodItem {
         return foodItemID;
     }
 
+    public void setFoodItemID(String foodItemID) {
+        this.foodItemID = foodItemID;
+    }
+
     public String getFoodName() {
         return foodName;
+    }
+
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
     }
 
     public String getFoodPrice() {
         return foodPrice;
     }
 
+    public void setFoodPrice(String foodPrice) {
+        this.foodPrice = foodPrice;
+    }
+
     public String getFoodDescription() {
         return foodDescription;
+    }
+
+    public void setFoodDescription(String foodDescription) {
+        this.foodDescription = foodDescription;
     }
 }
