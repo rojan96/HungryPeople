@@ -20,4 +20,11 @@ public class DaoImpl implements Dao {
     public void getUserData() {
 
     }
+    //Get order list customer and business
+    //Get business list
+    //
+    @Override
+    public void getOrderList() {
+
+    }
 }

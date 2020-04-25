@@ -6,4 +6,5 @@ public interface Dao {
     public void createNewOrder();
     public void getUserData();
     public void getBusinessData();
+    public void getOrderList();
 }
