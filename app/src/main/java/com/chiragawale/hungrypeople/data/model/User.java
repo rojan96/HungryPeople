@@ -3,7 +3,6 @@ package com.chiragawale.hungrypeople.data.model;
 import java.util.ArrayList;
 
 public class User {
-    private String userID;
     private String userName;
     private String firstName;
     private String lastName;
@@ -11,13 +10,6 @@ public class User {
     private String emailAddress;
     private String address;
 
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
 
     public String getUserName() {
         return userName;
@@ -67,16 +59,15 @@ public class User {
         this.address = address;
     }
 
-    public ArrayList<Order> getOrderHistory() {
+    public ArrayList<String> getOrderHistory() {
         return orderHistory;
     }
 
-    public void setOrderHistory(ArrayList<Order> orderHistory) {
+    public void setOrderHistory(ArrayList<String> orderHistory) {
         this.orderHistory = orderHistory;
     }
 
-    public User(String userID, String userName, String firstName, String lastName, String phoneNumber, String emailAddress, String address, ArrayList<Order> orderHistory) {
-        this.userID = userID;
+    public User(String userName, String firstName, String lastName, String phoneNumber, String emailAddress, String address, ArrayList<String> orderHistory) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -86,5 +77,5 @@ public class User {
         this.orderHistory = orderHistory;
     }
 
-    ArrayList<Order> orderHistory = new ArrayList<Order>();
+    ArrayList<String> orderHistory = new ArrayList<String>();
 }

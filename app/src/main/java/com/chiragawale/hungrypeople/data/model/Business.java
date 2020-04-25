@@ -10,9 +10,9 @@ public class Business {
     private String address;
 
     ArrayList<FoodItem> menu = new ArrayList<FoodItem>();
-    ArrayList<Order> orderHistory = new ArrayList<Order>();
+    ArrayList<String> orderHistory = new ArrayList<String>();
 
-    public Business(String businessID, String businessName, String phoneNumber, String emailAddress, String address, ArrayList<FoodItem> menu, ArrayList<Order> orderHistory) {
+    public Business(String businessID, String businessName, String phoneNumber, String emailAddress, String address, ArrayList<FoodItem> menu, ArrayList<String> orderHistory) {
         this.businessID = businessID;
         this.businessName = businessName;
         this.phoneNumber = phoneNumber;
@@ -70,11 +70,11 @@ public class Business {
         this.address = address;
     }
 
-    public ArrayList<Order> getOrderHistory() {
+    public ArrayList<String> getOrderHistory() {
         return orderHistory;
     }
 
-    public void setOrderHistory(ArrayList<Order> orderHistory) {
+    public void setOrderHistory(ArrayList<String> orderHistory) {
         this.orderHistory = orderHistory;
     }
 }
