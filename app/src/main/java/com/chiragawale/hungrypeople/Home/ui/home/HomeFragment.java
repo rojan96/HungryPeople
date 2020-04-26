@@ -2,6 +2,7 @@ package com.chiragawale.hungrypeople.Home.ui.home;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.icu.text.StringSearch;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.chiragawale.hungrypeople.App;
 import com.chiragawale.hungrypeople.Home.Item;
 import com.chiragawale.hungrypeople.R;
 import com.chiragawale.hungrypeople.data.model.Business;
+import com.eaio.stringsearch.BoyerMooreHorspoolRaita;
 import com.iammert.library.ui.multisearchviewlib.MultiSearchView;
 import com.ramotion.foldingcell.FoldingCell;
 
@@ -36,7 +38,10 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel mViewModel;
-    private MultiSearchView mv;
+    MultiSearchView multiSearchView;
+    ListView listView;
+    ArrayList<Business> allBusiness;
+    FoldingCellListAdapter adapter;
 
 
     public static HomeFragment newInstance() {
@@ -50,25 +55,30 @@ public class HomeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.home_fragment, container, false);
 
-        final ListView listView=v.findViewById(R.id.mainListView);
-        final MultiSearchView multiSearchView=v.findViewById(R.id.et_multisearch);
+        listView=v.findViewById(R.id.mainListView);
+        multiSearchView=v.findViewById(R.id.et_multisearch);
         listView.setVisibility(View.INVISIBLE);
 
-        final ArrayList<Business> allBusiness= App.dao.getBusinessList();
+        allBusiness= App.dao.getBusinessList();
 
         multiSearchView.setSearchViewListener(new MultiSearchView.MultiSearchViewListener() {
             @Override
             public void onTextChanged(int i, CharSequence charSequence) {
-                RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams) multiSearchView.getLayoutParams();
-                params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                multiSearchView.setLayoutParams(params);
-                listView.setVisibility(View.VISIBLE);
+
 
             }
 
             @Override
             public void onSearchComplete(int i, CharSequence charSequence) {
                 String newText=charSequence.toString();
+                ArrayList<Business> searchResult=searchRestaurant(newText);
+                adapter = new FoldingCellListAdapter(getActivity(),searchResult);
+                listView.setAdapter(adapter);
+
+                RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams) multiSearchView.getLayoutParams();
+                params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                multiSearchView.setLayoutParams(params);
+                listView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -78,15 +88,19 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onItemSelected(int i, CharSequence charSequence) {
+                String newText=charSequence.toString();
+                ArrayList<Business> searchResult=searchRestaurant(newText);
+                adapter = new FoldingCellListAdapter(getActivity(),searchResult);
+                listView.setAdapter(adapter);
+
+                RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams) multiSearchView.getLayoutParams();
+                params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                multiSearchView.setLayoutParams(params);
+                listView.setVisibility(View.VISIBLE);
 
             }
         }
         );
-
-
-
-
-
 
         // add custom btn handler to first list item
 //        items.get(0).setRequestBtnClickListener(new View.OnClickListener() {
@@ -96,19 +110,18 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
 
-
-        final FoldingCellListAdapter adapter = new FoldingCellListAdapter(getActivity(),allBusiness);
+        //adapter = new FoldingCellListAdapter(getActivity(),allBusiness);
 
         // add default btn handler for each request btn on each item if custom handler not found
-        adapter.setDefaultRequestBtnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "DEFAULT HANDLER FOR ALL BUTTONS", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        adapter.setDefaultRequestBtnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getContext(), "DEFAULT HANDLER FOR ALL BUTTONS", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         // set elements to adapter
-        listView.setAdapter(adapter);
+
 
         // set on click event listener to list view
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -126,6 +139,19 @@ public class HomeFragment extends Fragment {
 
 
         return v;
+    }
+
+    private ArrayList<Business> searchRestaurant(String newText) {
+        BoyerMooreHorspoolRaita boyer= new BoyerMooreHorspoolRaita();
+        ArrayList<Business> searchResult=new ArrayList<>();
+        for(Business business: allBusiness){
+            String name=business.getBusinessName();
+            int result=boyer.searchString(name,newText);
+            if (result!=-1){
+                searchResult.add(business);
+            }
+        }
+        return searchResult;
     }
 
 
