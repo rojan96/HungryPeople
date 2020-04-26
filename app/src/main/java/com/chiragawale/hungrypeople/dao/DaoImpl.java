@@ -41,6 +41,7 @@ public class DaoImpl implements Dao {
 
     @Override
     public ArrayList<User> getGlobalList(Context context) {
+        Log.e("global","global"+globalUserList.size());
         return globalUserList;
     }
 
@@ -233,13 +234,14 @@ public class DaoImpl implements Dao {
                         String emailAddress = result.getString("email_address");
                         String openHours = result.getString("open_hours");
                         String businessAddress = result.getString("business_address");
-
+                        Log.e("API","API" +userDataList.size());
 //
                         userDataList.add(new User(userName, firstName, lastName, iscustomer, businessName, address, phoneNumber, emailAddress, openHours, businessAddress));
 //                        Log.e("HP", userDataList.toString());
 
                     }
                     globalUserList = userDataList;
+                    Log.e("API","API" +globalUserList.size());
                 } catch (JSONException e) {
                     Log.e("HP", "Json error", e);
                 }
@@ -251,6 +253,7 @@ public class DaoImpl implements Dao {
 
             }
         });
+        Log.e("API","APvbhvghvgvghvgI");
         requestQueue.add(request);
         return userDataList;
     }

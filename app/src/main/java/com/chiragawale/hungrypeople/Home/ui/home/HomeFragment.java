@@ -25,6 +25,7 @@ import com.chiragawale.hungrypeople.App;
 import com.chiragawale.hungrypeople.Profile.ProfileActivity;
 import com.chiragawale.hungrypeople.R;
 import com.chiragawale.hungrypeople.data.model.Business;
+import com.chiragawale.hungrypeople.data.model.User;
 import com.chiragawale.hungrypeople.ui.CartActivity;
 import com.eaio.stringsearch.BoyerMooreHorspoolRaita;
 import com.iammert.library.ui.multisearchviewlib.MultiSearchView;
@@ -39,7 +40,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel mViewModel;
     MultiSearchView multiSearchView;
     ListView listView;
-    ArrayList<Business> allBusiness;
+    ArrayList<User> allBusiness;
     FoldingCellListAdapter adapter;
 
 
@@ -60,7 +61,7 @@ public class HomeFragment extends Fragment {
 
         listView.setVisibility(View.INVISIBLE);
 
-        allBusiness= App.dao.getBusinessList();
+
 
         multiSearchView.setSearchViewListener(new MultiSearchView.MultiSearchViewListener() {
             @Override
@@ -72,7 +73,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onSearchComplete(int i, CharSequence charSequence) {
                 String newText=charSequence.toString();
-                ArrayList<Business> searchResult=searchRestaurant(newText);
+                allBusiness= App.dao.getGlobalList(getContext());
+                ArrayList<User> searchResult=searchRestaurant(newText);
                 adapter = new FoldingCellListAdapter(getActivity(),searchResult);
                 listView.setAdapter(adapter);
 
@@ -90,7 +92,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemSelected(int i, CharSequence charSequence) {
                 String newText=charSequence.toString();
-                ArrayList<Business> searchResult=searchRestaurant(newText);
+                ArrayList<User> searchResult=searchRestaurant(newText);
                 adapter = new FoldingCellListAdapter(getActivity(),searchResult);
                 listView.setAdapter(adapter);
 
@@ -146,13 +148,25 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        Button profile =  v.findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return v;
     }
 
-    private ArrayList<Business> searchRestaurant(String newText) {
+    private ArrayList<User> searchRestaurant(String newText) {
         BoyerMooreHorspoolRaita boyer= new BoyerMooreHorspoolRaita();
-        ArrayList<Business> searchResult=new ArrayList<>();
-        for(Business business: allBusiness){
+        ArrayList<User> searchResult=new ArrayList<>();
+        int size=allBusiness.size();
+        String stringSize=Integer.toString(size);
+        Log.e("size",stringSize);
+        for(User business: allBusiness){
             String name=business.getBusinessName();
             int result=boyer.searchString(name,newText);
             if (result!=-1){
