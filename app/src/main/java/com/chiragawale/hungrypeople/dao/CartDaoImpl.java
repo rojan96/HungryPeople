@@ -4,8 +4,11 @@ import android.content.Context;
 import android.util.Log;
 
 import com.carteasy.v1.lib.Carteasy;
+import com.chiragawale.hungrypeople.data.model.CartItem;
 import com.chiragawale.hungrypeople.data.model.FoodItem;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -33,10 +36,11 @@ public class CartDaoImpl implements CartDao {
     }
 
     @Override
-    public void getAllItemsFromCart(Context context) {
+    public List<CartItem> getAllItemsFromCart(Context context) {
         Map<Integer, Map> data;
         Carteasy cs = new Carteasy();
         data = cs.ViewAll(context);
+        List<CartItem> cartItems = new ArrayList<>();
 
         for (Map.Entry<Integer, Map> entry : data.entrySet()) {
             //get the Id
@@ -48,7 +52,9 @@ public class CartDaoImpl implements CartDao {
                 Log.e("Inner Key: ",innerentry.getKey());
                 Log.e("Inner Value: ",innerentry.getValue());
             }
+            cartItems.add(new CartItem(entry.getKey().toString(),innerdata.get("foodName"),innerdata.get("foodPrice"),innerdata.get("foodItemId")));
         }
+        return cartItems;
     }
 //        FoodItem foodItem = new FoodItem("asd","momo","23","descirp");
 //        App.cartDao.addToCart(foodItem,getApplicationContext());

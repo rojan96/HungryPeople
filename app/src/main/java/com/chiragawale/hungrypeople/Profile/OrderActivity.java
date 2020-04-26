@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.chiragawale.hungrypeople.App;
 import com.chiragawale.hungrypeople.R;
 
 public class OrderActivity extends AppCompatActivity {
@@ -20,5 +21,7 @@ public class OrderActivity extends AppCompatActivity {
 
         nameTextView = findViewById(R.id.order_details);
         nameTextView.setText(name);
+
+        App.dao.getUserList(getApplicationContext());
     }
 }

@@ -25,6 +25,7 @@ import com.chiragawale.hungrypeople.App;
 import com.chiragawale.hungrypeople.Profile.ProfileActivity;
 import com.chiragawale.hungrypeople.R;
 import com.chiragawale.hungrypeople.data.model.Business;
+import com.chiragawale.hungrypeople.ui.CartActivity;
 import com.eaio.stringsearch.BoyerMooreHorspoolRaita;
 import com.iammert.library.ui.multisearchviewlib.MultiSearchView;
 import com.ramotion.foldingcell.FoldingCell;
@@ -176,7 +177,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void goToProfile(){
-        Intent intent = new Intent(getActivity(), ProfileActivity.class);
+        Intent intent = new Intent(getActivity(), CartActivity.class);
         startActivity(intent);
     }
 
