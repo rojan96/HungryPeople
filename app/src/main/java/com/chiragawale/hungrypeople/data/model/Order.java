@@ -61,22 +61,15 @@ public class Order {
         this.date = date;
     }
 
-    public ArrayList<FoodItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(ArrayList<FoodItem> orderItems) {
-        this.orderItems = orderItems;
-    }
 
 
-    public Order(String orderID, String userID, String businessID, String orderReceiveMethod, String pickupTime, String date, ArrayList<FoodItem> orderItems) {
+    public Order(String orderID, String userID, String businessID, String orderReceiveMethod, String pickupTime, String date) {
         this.orderID = orderID;
         this.userID = userID;
         this.businessID = businessID;
         this.orderReceiveMethod = orderReceiveMethod;
         this.pickupTime = pickupTime;
         this.date = date;
-        this.orderItems = orderItems;
+
     }
 }

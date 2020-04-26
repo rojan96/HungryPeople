@@ -5,17 +5,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.chiragawale.hungrypeople.App;
 import com.chiragawale.hungrypeople.R;
+import com.chiragawale.hungrypeople.data.model.OrderItem;
 import com.chiragawale.hungrypeople.data.model.User;
 
 import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private OrderAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -48,10 +50,11 @@ public class ProfileActivity extends AppCompatActivity {
         homeAddress.setText(address);
 
         recyclerView = findViewById(R.id.recycler_view);
-        adapter = new OrderAdapter();
+        ArrayList <OrderItem> orderItems = new ArrayList<>();
+        adapter = new OrderAdapter(orderItems);
         layoutManager = new LinearLayoutManager(this);
-
         recyclerView.setAdapter(adapter);
+        App.dao.loadOrderItemList(getApplicationContext(), adapter);
         recyclerView.setLayoutManager(layoutManager);
     }
 }
