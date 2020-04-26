@@ -9,6 +9,9 @@ public class Order {
     private String orderReceiveMethod;
     private String pickupTime;
     private String date;
+    private float total;
+
+    ArrayList<FoodItem> orderItems = new ArrayList<FoodItem>();
 
     public String getOrderID() {
         return orderID;
@@ -66,7 +69,6 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-    ArrayList<FoodItem> orderItems = new ArrayList<FoodItem>();
 
     public Order(String orderID, String userID, String businessID, String orderReceiveMethod, String pickupTime, String date, ArrayList<FoodItem> orderItems) {
         this.orderID = orderID;

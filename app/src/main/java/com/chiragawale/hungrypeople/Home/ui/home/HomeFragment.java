@@ -1,31 +1,28 @@
 package com.chiragawale.hungrypeople.Home.ui.home;
 
+
+import android.content.Intent;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.icu.text.StringSearch;
+
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.SearchEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.chiragawale.hungrypeople.App;
-import com.chiragawale.hungrypeople.Home.Item;
+import com.chiragawale.hungrypeople.Profile.ProfileActivity;
 import com.chiragawale.hungrypeople.R;
 import com.chiragawale.hungrypeople.data.model.Business;
 import com.eaio.stringsearch.BoyerMooreHorspoolRaita;
@@ -33,7 +30,6 @@ import com.iammert.library.ui.multisearchviewlib.MultiSearchView;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -55,8 +51,10 @@ public class HomeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.home_fragment, container, false);
 
+
         listView=v.findViewById(R.id.mainListView);
         multiSearchView=v.findViewById(R.id.et_multisearch);
+
         listView.setVisibility(View.INVISIBLE);
 
         allBusiness= App.dao.getBusinessList();
@@ -137,6 +135,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        Button button =  v.findViewById(R.id.profileButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToProfile();
+            }
+        });
 
         return v;
     }
@@ -167,4 +172,10 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
+
+    public void goToProfile(){
+        Intent intent = new Intent(getActivity(), ProfileActivity.class);
+        startActivity(intent);
+    }
+
 }
