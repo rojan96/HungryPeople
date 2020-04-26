@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -95,7 +97,7 @@ class FoldingCellListAdapter extends ArrayAdapter<Business> {
             viewHolder.contentMenu1.setText(business.getMenu().get(0).getFoodName());
             viewHolder.contentMenu2.setText(business.getMenu().get(1).getFoodName());
             viewHolder.contentMenu3.setText(business.getMenu().get(2).getFoodName());
-            viewHolder.contentMenu4.setText(business.getMenu().get(8).getFoodName());
+            viewHolder.contentMenu4.setText(business.getMenu().get(3).getFoodName());
         }
         catch(Exception e){
             Log.e("folding",e.getMessage());
@@ -147,7 +149,9 @@ class FoldingCellListAdapter extends ArrayAdapter<Business> {
 
         TextView contentBusinessID;
         TextView contentBusinessName,contentMenu1,contentMenu2,contentMenu3,contentMenu4;
-        TextView contentRequestBtn;
+        Button contentRequestBtn;
+
+        ImageButton contentAddMenu1,contentAddMenu2,contentAddMenu3,contentAddMenu4;
 
 
     }

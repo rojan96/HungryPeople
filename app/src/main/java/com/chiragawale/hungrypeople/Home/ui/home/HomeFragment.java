@@ -30,6 +30,8 @@ import com.iammert.library.ui.multisearchviewlib.MultiSearchView;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class HomeFragment extends Fragment {
 
