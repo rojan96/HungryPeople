@@ -90,11 +90,7 @@ class FoldingCellListAdapter extends ArrayAdapter<Business> {
         viewHolder.contentBusinessID.setText(business.getBusinessID());
         viewHolder.contentBusinessName.setText(business.getBusinessName());
 
-        ArrayList<FoodItem> menu=business.getMenu();
-        ArrayList<String> strings = new ArrayList<>();
-        for (FoodItem foodItem: menu){
-            strings.add(foodItem.getFoodName());
-        }
+       
         try {
             viewHolder.contentMenu1.setText(business.getMenu().get(0).getFoodName());
             viewHolder.contentMenu2.setText(business.getMenu().get(1).getFoodName());
