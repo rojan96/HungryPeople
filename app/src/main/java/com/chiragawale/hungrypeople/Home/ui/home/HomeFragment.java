@@ -50,15 +50,15 @@ public class HomeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.home_fragment, container, false);
 
-        //EditText editText=v.findViewById(R.id.et_search);
         final ListView listView=v.findViewById(R.id.mainListView);
         final MultiSearchView multiSearchView=v.findViewById(R.id.et_multisearch);
         listView.setVisibility(View.INVISIBLE);
 
+        final ArrayList<Business> allBusiness= App.dao.getBusinessList();
+
         multiSearchView.setSearchViewListener(new MultiSearchView.MultiSearchViewListener() {
             @Override
             public void onTextChanged(int i, CharSequence charSequence) {
-                //animation(multiSearchView);
                 RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams) multiSearchView.getLayoutParams();
                 params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 multiSearchView.setLayoutParams(params);
@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onSearchComplete(int i, CharSequence charSequence) {
-
+                String newText=charSequence.toString();
             }
 
             @Override
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        final ArrayList<Business> allBusiness= App.dao.getBusinessList();
+
 
 
         // add custom btn handler to first list item
@@ -118,6 +118,8 @@ public class HomeFragment extends Fragment {
                 Log.e("clicked","clicked");
                 ((FoldingCell) view).toggle(false);
                 // register in adapter that state for selected cell is toggled
+
+
                 adapter.registerToggle(pos);
             }
         });
