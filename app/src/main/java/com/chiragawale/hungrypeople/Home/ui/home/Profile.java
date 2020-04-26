@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.chiragawale.hungrypeople.App;
 import com.chiragawale.hungrypeople.R;
 import com.chiragawale.hungrypeople.dao.Dao;
 import com.chiragawale.hungrypeople.dao.DaoImpl;
@@ -18,8 +19,7 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Dao dao = new DaoImpl();
-        User user = dao.getUserData("1");
+        User user = App.dao.getUserData("1");
         ArrayList <String> orders = new ArrayList<String>();
 
         String userName = user.getUserName();
