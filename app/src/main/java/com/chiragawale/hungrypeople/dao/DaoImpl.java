@@ -178,6 +178,7 @@ public class DaoImpl implements Dao {
         menu.add(new FoodItem("1","MoMo","5.99", "Mitho"));
         menu.add(new FoodItem("2","Bhat","7.99", "Atti Mitho"));
         menu.add(new FoodItem("3","Chowmein","4.99", "Thikkai Mitho"));
+        menu.add(new FoodItem("4","Chowmeinwe","4.99", "Thikkai Mitho al"));
 
         businessDataList.add(new Business("1", "Rojan", "3344921559", "rojanm874@gmail.com", "NFranklin", menu, orders));
         businessDataList.add(new Business("2", "Chirag", "3344921560", "chirag@gmail.com", "NFranklin", menu, orders));
