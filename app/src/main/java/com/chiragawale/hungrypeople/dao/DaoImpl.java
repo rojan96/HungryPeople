@@ -1,14 +1,11 @@
 package com.chiragawale.hungrypeople.dao;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.chiragawale.hungrypeople.data.model.Business;
 import com.chiragawale.hungrypeople.data.model.FoodItem;
 import com.chiragawale.hungrypeople.data.model.Order;
@@ -33,8 +30,11 @@ public class DaoImpl implements Dao {
     public User getUserData(String userID) {
         //Dummy Data
         final ArrayList<String> orders = new ArrayList<String>();
-
-        User Jane = new User("JD", "Jane", "Doe", true,"JD SHOP","Ghar","3343343344", "jd@email.com", "9-10", "pasal" );
+        orders.add("12345");
+        orders.add("12346");
+        orders.add("12347");
+        orders.add("12348");
+        User Jane = new User("JD", "Jane", "Doe", "3343343344", "jd@email.com", "Ghar", orders);
 //        String djangoEndpoint = "";
 //        final ArrayList <User> userData = new ArrayList<User>();
 //        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONObject>() {
@@ -87,12 +87,11 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public ArrayList<User> getUserList(Context context) {
+    public ArrayList<User> getUserList() {
 
         final ArrayList<User> userDataList = new ArrayList<User>();
 
         //Dummy Data
-<<<<<<< Updated upstream
         final ArrayList<String> orders = new ArrayList<String>();
         orders.add("12345");
         orders.add("12346");
@@ -139,58 +138,6 @@ public class DaoImpl implements Dao {
 //                Log.e("HP", userDataList.toString());
 //            }
 //        });
-=======
-//        final ArrayList<String> orders = new ArrayList<String>();
-//        orders.add("12345");
-//        orders.add("12346");
-//        orders.add("12347");
-//        orders.add("12348");
-//        userDataList.add(new User("rojan", "Rojan", "Maharjan", "3344921559", "rojanm874@gmail.com", "NFranklin", orders));
-//        userDataList.add(new User("chirag", "Chirag", "Awale", "3344921560", "chirag@gmail.com", "NFranklin", orders));
-//        userDataList.add(new User("Smit", "Smit", "Shrestha", "3344921561", "smit@gmail.com", "NFranklin", orders));
-
-        return loadAPIList(userDataList, context);
-    }
-
-    public ArrayList<User>  loadAPIList(final ArrayList<User> userDataList, Context context) {
-
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String djangoEndpoint = BASE_API + BUSINESS;
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray results = response.getJSONArray("Users");
-                    for (int i = 0; i < results.length(); i++) {
-                        JSONObject result = results.getJSONObject(i);
-                        String userName = result.getString("userName");
-                        String firstName = result.getString("firstName");
-                        String lastName = result.getString("lastName");
-                        Boolean iscustomer = result.getBoolean("iscustomer");
-                        String businessName = result.getString("business_name");
-                        String address = result.getString("full_address");
-                        String phoneNumber = result.getString("phoneNumber");
-                        String emailAddress = result.getString("emailAddress");
-                        String openHours = result.getString("open_hours");
-                        String businessAddress = result.getString("business_address");
-
-//
-                        userDataList.add(new User(userName, firstName, lastName, iscustomer, businessName, address, phoneNumber, emailAddress, openHours, businessAddress));
-                    }
-
-                } catch (JSONException e) {
-                    Log.e("HP", "Json error", e);
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError e) {
-                Log.e("HP", "User list error" + e.getMessage());
-
-            }
-        });
-        requestQueue.add(request);
->>>>>>> Stashed changes
         return userDataList;
     }
 
