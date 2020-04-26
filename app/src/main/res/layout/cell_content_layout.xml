@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:visibility="gone">
 
@@ -28,7 +29,6 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:src="@drawable/menu_icon" />
@@ -70,7 +70,6 @@
                 style="@style/ContentMainBadgeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="5dp"
                 android:text="@string/Restaurant" />
@@ -89,10 +88,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/content_avatar"
                 android:layout_marginBottom="2dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/content_avatar"
-                android:layout_toRightOf="@id/content_avatar"
                 android:text="@string/client_name_mock"
                 android:textColor="@color/mainTextColor"
                 android:textSize="18sp"
@@ -103,7 +100,6 @@
                 android:id="@+id/content_rating_stars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/content_name"
                 android:layout_alignStart="@id/content_name"
                 android:layout_below="@id/content_name"
                 android:src="@drawable/stars" />
@@ -113,21 +109,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/content_rating_stars"
                 android:layout_marginBottom="-2dp"
-                android:layout_marginLeft="3dp"
                 android:layout_marginStart="3dp"
                 android:layout_toEndOf="@id/content_rating_stars"
-                android:layout_toRightOf="@id/content_rating_stars"
                 android:text="@string/rating_mock"
                 android:textColor="@color/contentBadgeTitle"
                 android:textSize="12sp" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/arrow" />
 
         </RelativeLayout>
 
@@ -135,7 +122,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="9dp"
             android:layout_marginTop="9dp"
             android:src="@color/contentDividerLine" />
 
@@ -147,26 +134,40 @@
             android:orientation="horizontal"
             android:layout_margin="@dimen/activity_vertical_margin">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp">
 
                 <TextView
                     android:id="@+id/content_menu1"
                     style="@style/ContentMainBadgeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
                     android:text="@string/from_badge"
                     android:textColor="@color/mainTextColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-            </RelativeLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
 
-            <RelativeLayout
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="10dp"
+                    android:src="@drawable/ic_add_24px"
+                    android:id="@+id/add_menu1"
+                    android:layout_gravity="right"
+                   />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -176,15 +177,28 @@
                     style="@style/ContentMainBadgeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
                     android:text="@string/to_badge"
                     android:textColor="@color/mainTextColor"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"/>
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
 
-            </RelativeLayout>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="10dp"
+                    android:src="@drawable/ic_add_24px"
+                    android:id="@+id/add_menu2"
+                    android:layout_gravity="right"
+                    />
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -204,26 +218,40 @@
             android:orientation="horizontal"
             android:layout_margin="@dimen/activity_vertical_margin">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp">
 
                 <TextView
                     android:id="@+id/content_menu3"
                     style="@style/ContentMainBadgeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
                     android:text="@string/from_badge"
                     android:textColor="@color/mainTextColor"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"/>
 
-        </RelativeLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
 
-        <RelativeLayout
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="10dp"
+                    android:src="@drawable/ic_add_24px"
+                    android:id="@+id/add_menu3"
+                    android:layout_gravity="right"
+                    />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -233,19 +261,39 @@
                 style="@style/ContentMainBadgeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:textColor="@color/mainTextColor"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="bold"/>
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
 
-        </RelativeLayout>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="10dp"
+                android:src="@drawable/ic_add_24px"
+                android:id="@+id/add_menu4"
+                android:layout_gravity="right"
+                />
+
 
         </LinearLayout>
 
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="7dp"
+            android:src="@color/contentDividerLine" />
+
         <!-- request button -->
-        <TextView
+        <Button
             android:id="@+id/content_request_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
