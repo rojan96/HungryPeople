@@ -21,6 +21,7 @@ import com.chiragawale.hungrypeople.R;
 import com.chiragawale.hungrypeople.dao.Dao;
 import com.chiragawale.hungrypeople.data.model.Business;
 import com.chiragawale.hungrypeople.data.model.FoodItem;
+import com.chiragawale.hungrypeople.data.model.User;
 import com.ramotion.foldingcell.FoldingCell;
 
 import org.w3c.dom.Text;
@@ -29,16 +30,18 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-class FoldingCellListAdapter extends ArrayAdapter<Business> {
+class FoldingCellListAdapter extends ArrayAdapter<User> {
 
     private HashSet<Integer> unfoldedIndexes = new HashSet<>();
     private View.OnClickListener defaultRequestBtnClickListener;
     private Context mContext;
-    private ArrayList<Business> mObjects;
-    private ArrayList<Business> mAllBusiness;
+    //private ArrayList<Business> mObjects;
+    private ArrayList<User> mAllBusiness;
     ViewHolder viewHolder;
+    ArrayList<FoodItem> foodList;
 
-    public FoldingCellListAdapter(Context context, ArrayList<Business> allBusiness){
+    public FoldingCellListAdapter(Context context, ArrayList<User> allBusiness){
+        //super(context,0,);
         super(context,0,allBusiness);
         this.mContext=context;
         this.mAllBusiness=allBusiness;
@@ -49,7 +52,7 @@ class FoldingCellListAdapter extends ArrayAdapter<Business> {
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         // get item for selected view
-        final Business business=mAllBusiness.get(position);
+        final User business=mAllBusiness.get(position);
         // if cell is exists - reuse it, if not - create the new one from resource
         FoldingCell cell = (FoldingCell) convertView;
         
@@ -94,46 +97,48 @@ class FoldingCellListAdapter extends ArrayAdapter<Business> {
         // bind data from selected element to view through view holder
         viewHolder.titleBusinessName.setText(business.getBusinessName());
         viewHolder.titleAddress.setText(business.getAddress());
-        viewHolder.titleBusinessID.setText(business.getBusinessID());
+        viewHolder.titleBusinessID.setText(business.getOpenHours());
         viewHolder.titleEmailAddress.setText(business.getEmailAddress());
         viewHolder.titlePhoneNumber.setText(business.getPhoneNumber());
 
-        viewHolder.contentBusinessID.setText(business.getBusinessID());
+        viewHolder.contentBusinessID.setText(business.getOpenHours());
         viewHolder.contentBusinessName.setText(business.getBusinessName());
+
+       foodList=App.dao.getFoodItemList(mContext);
 
         viewHolder.contentAddMenu1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.cartDao.addToCart(business.getMenu().get(0),mContext);
+                App.cartDao.addToCart(foodList.get(0),mContext);
             }
         });
 
         viewHolder.contentAddMenu2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.cartDao.addToCart(business.getMenu().get(1),mContext);
+                App.cartDao.addToCart(foodList.get(1),mContext);
             }
         });
 
         viewHolder.contentAddMenu3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.cartDao.addToCart(business.getMenu().get(2),mContext);
+                App.cartDao.addToCart(foodList.get(2),mContext);
             }
         });
 
         viewHolder.contentAddMenu4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.cartDao.addToCart(business.getMenu().get(3),mContext);
+                App.cartDao.addToCart(foodList.get(3),mContext);
             }
         });
        
         try {
-            viewHolder.contentMenu1.setText(business.getMenu().get(0).getFoodName());
-            viewHolder.contentMenu2.setText(business.getMenu().get(1).getFoodName());
-            viewHolder.contentMenu3.setText(business.getMenu().get(2).getFoodName());
-            viewHolder.contentMenu4.setText(business.getMenu().get(3).getFoodName());
+            viewHolder.contentMenu1.setText(foodList.get(0).getFoodName());
+            viewHolder.contentMenu2.setText(foodList.get(1).getFoodName());
+            viewHolder.contentMenu3.setText(foodList.get(2).getFoodName());
+            viewHolder.contentMenu4.setText(foodList.get(3).getFoodName());
         }
         catch(Exception e){
             Log.e("folding",e.getMessage());
