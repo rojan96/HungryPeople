@@ -46,7 +46,9 @@
     <string name="homeaddress">"Address: "</string>
     <string name="your_past_orders">"Your Past Orders"</string>
     <string name="Restaurant">RESTAURANT</string>
-
+    <string name="business_name">Business Name</string>
+    <string name="business_id">Business ID</string>
+    <string name="Menu">Menu</string>
 
 
 </resources>

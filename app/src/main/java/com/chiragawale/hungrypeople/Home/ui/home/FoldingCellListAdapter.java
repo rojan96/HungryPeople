@@ -1,6 +1,7 @@
 package com.chiragawale.hungrypeople.Home.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.annotation.NonNull;
 
 import com.chiragawale.hungrypeople.App;
 import com.chiragawale.hungrypeople.Home.Item;
+import com.chiragawale.hungrypeople.Profile.OrderActivity;
+import com.chiragawale.hungrypeople.Profile.ProfileActivity;
 import com.chiragawale.hungrypeople.R;
 import com.chiragawale.hungrypeople.dao.Dao;
 import com.chiragawale.hungrypeople.data.model.Business;
@@ -46,7 +49,7 @@ class FoldingCellListAdapter extends ArrayAdapter<Business> {
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         // get item for selected view
-        Business business=mAllBusiness.get(position);
+        final Business business=mAllBusiness.get(position);
         // if cell is exists - reuse it, if not - create the new one from resource
         FoldingCell cell = (FoldingCell) convertView;
         
@@ -54,6 +57,8 @@ class FoldingCellListAdapter extends ArrayAdapter<Business> {
             viewHolder = new ViewHolder();
             LayoutInflater vi = LayoutInflater.from(getContext());
             cell = (FoldingCell) vi.inflate(R.layout.cell, parent, false);
+
+            //App.cartDao.getAllItemsFromCart(mContext);
             // binding view parts to view holder
             viewHolder.titleBusinessName = cell.findViewById(R.id.title_business_name);
             viewHolder.titleAddress = cell.findViewById(R.id.title_business_address);
@@ -68,6 +73,10 @@ class FoldingCellListAdapter extends ArrayAdapter<Business> {
             viewHolder.contentMenu3=cell.findViewById(R.id.content_menu3);
             viewHolder.contentMenu4=cell.findViewById(R.id.content_menu4);
             viewHolder.contentRequestBtn = cell.findViewById(R.id.content_request_btn);
+            viewHolder.contentAddMenu1=cell.findViewById(R.id.add_menu1);
+            viewHolder.contentAddMenu2=cell.findViewById(R.id.add_menu2);
+            viewHolder.contentAddMenu3=cell.findViewById(R.id.add_menu3);
+            viewHolder.contentAddMenu4=cell.findViewById(R.id.add_menu4);
             cell.setTag(viewHolder);
         } else {
             // for existing cell set valid valid state(without animation)
@@ -92,6 +101,33 @@ class FoldingCellListAdapter extends ArrayAdapter<Business> {
         viewHolder.contentBusinessID.setText(business.getBusinessID());
         viewHolder.contentBusinessName.setText(business.getBusinessName());
 
+        viewHolder.contentAddMenu1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.cartDao.addToCart(business.getMenu().get(0),mContext);
+            }
+        });
+
+        viewHolder.contentAddMenu2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.cartDao.addToCart(business.getMenu().get(1),mContext);
+            }
+        });
+
+        viewHolder.contentAddMenu3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.cartDao.addToCart(business.getMenu().get(2),mContext);
+            }
+        });
+
+        viewHolder.contentAddMenu4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.cartDao.addToCart(business.getMenu().get(3),mContext);
+            }
+        });
        
         try {
             viewHolder.contentMenu1.setText(business.getMenu().get(0).getFoodName());
@@ -103,12 +139,14 @@ class FoldingCellListAdapter extends ArrayAdapter<Business> {
             Log.e("folding",e.getMessage());
         }
         // set custom btn handler for list item from that item
-        if (business.getRequestBtnClickListener() != null) {
-            viewHolder.contentRequestBtn.setOnClickListener(business.getRequestBtnClickListener());
-        } else {
-            // (optionally) add "default" handler if no handler found in item
-            viewHolder.contentRequestBtn.setOnClickListener(defaultRequestBtnClickListener);
-        }
+        viewHolder.contentRequestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, ProfileActivity.class));
+            }
+        });
+
+
 
         return cell;
     }
