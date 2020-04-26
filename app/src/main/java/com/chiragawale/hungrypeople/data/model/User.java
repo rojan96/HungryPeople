@@ -1,15 +1,52 @@
 package com.chiragawale.hungrypeople.data.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 public class User {
     private String userName;
     private String firstName;
     private String lastName;
+    private Boolean iscustomer;
+    private String businessName;
     private String phoneNumber;
     private String emailAddress;
     private String address;
+    private String openHours;
+    private String businessAddress;
 
+    public Boolean getIscustomer() {
+        return iscustomer;
+    }
+
+    public void setIscustomer(Boolean iscustomer) {
+        this.iscustomer = iscustomer;
+    }
+
+    public String getBusinessName() {
+        return businessName;
+    }
+
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
+    }
+
+    public String getOpenHours() {
+        return openHours;
+    }
+
+    public void setOpenHours(String openHours) {
+        this.openHours = openHours;
+    }
+
+    public String getBusinessAddress() {
+        return businessAddress;
+    }
+
+    public void setBusinessAddress(String businessAddress) {
+        this.businessAddress = businessAddress;
+    }
 
     public String getUserName() {
         return userName;
@@ -59,23 +96,20 @@ public class User {
         this.address = address;
     }
 
-    public ArrayList<String> getOrderHistory() {
-        return orderHistory;
-    }
 
-    public void setOrderHistory(ArrayList<String> orderHistory) {
-        this.orderHistory = orderHistory;
-    }
 
-    public User(String userName, String firstName, String lastName, String phoneNumber, String emailAddress, String address, ArrayList<String> orderHistory) {
+
+    public User(String userName, String firstName, String lastName, Boolean iscustomer, String businessName, String address, String phoneNumber, String emailAddress,  String openHours, String businessAddress) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.iscustomer = iscustomer;
+        this.businessName = businessName;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
         this.address = address;
-        this.orderHistory = orderHistory;
+        this.openHours = openHours;
+        this.businessAddress = businessAddress;
     }
 
-    ArrayList<String> orderHistory = new ArrayList<String>();
 }

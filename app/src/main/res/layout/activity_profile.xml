@@ -7,7 +7,74 @@
     tools:context=".Home.ui.home.Profile"
     android:orientation="vertical">
 
+<<<<<<< Updated upstream
     <TextView
+=======
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:textAlignment="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/username"
+            android:textAlignment="center"
+            android:textSize="40dp"
+            android:layout_marginTop="35dp"
+            android:paddingTop="5dp"
+            android:layout_marginBottom="30dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/first_name"
+            android:textSize="16dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="40dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/firstname"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:paddingTop="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/last_name"
+            android:textSize="16dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="40dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lastname"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:paddingTop="5dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+>>>>>>> Stashed changes
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Profile"
