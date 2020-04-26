@@ -20,7 +20,7 @@
         android:paddingTop="20dp">
 
         <TextView
-            android:id="@+id/title_hours"
+            android:id="@+id/title_business_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -45,7 +45,7 @@
 
 
         <TextView
-            android:id="@+id/title_name"
+            android:id="@+id/title_business_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-5dp"
@@ -59,13 +59,13 @@
             android:id="@+id/title_from_to_dots_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/title_name"
+            android:layout_below="@id/title_business_name"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:src="@color/contentDividerLine" />
 
         <TextView
-            android:id="@+id/title_address"
+            android:id="@+id/title_business_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title_from_to_dots_divider"
@@ -77,7 +77,7 @@
 
 
         <TextView
-            android:id="@+id/title_category"
+            android:id="@+id/title_business_email"
             style="@style/TitleBadgeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,10 +89,29 @@
             style="@style/TitleBadgeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/title_category"
-            android:layout_alignLeft="@id/title_category"
-            android:layout_alignStart="@id/title_category"
-            android:text="@string/category" />
+            android:layout_above="@id/title_business_email"
+            android:layout_alignLeft="@id/title_business_email"
+            android:layout_alignStart="@id/title_business_email"
+            android:text="@string/prompt_email" />
+
+        <TextView
+            android:id="@+id/title_phone"
+            style="@style/TitleBadgeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/phone" />
+
+        <TextView
+            style="@style/TitleBadgeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/title_phone"
+            android:layout_alignLeft="@id/title_phone"
+            android:layout_alignStart="@id/title_phone"
+            android:text="@string/phone" />
 
 
     </RelativeLayout>
