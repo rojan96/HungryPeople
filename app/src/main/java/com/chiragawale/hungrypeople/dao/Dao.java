@@ -1,5 +1,7 @@
 package com.chiragawale.hungrypeople.dao;
 
+import android.content.Context;
+
 import com.chiragawale.hungrypeople.data.model.Business;
 import com.chiragawale.hungrypeople.data.model.FoodItem;
 import com.chiragawale.hungrypeople.data.model.Order;
@@ -9,14 +11,14 @@ import java.util.ArrayList;
 
 public interface Dao {
     //General methods
-    public ArrayList<User> loadAPIList(final ArrayList<User> userDataList);
+    public ArrayList<User> loadAPIList(final ArrayList<User> userDataList, Context context);
 
     //User related methods
     void addUser();
     User getUserData(String userID);
     ArrayList<Business> getNearbyBusinessData(String searchTerm);
     ArrayList<Order> getUserOrderList(String userID);
-    ArrayList<User> getUserList();
+    ArrayList<User> getUserList(Context context);
 
 
     //order related methods
