@@ -32,8 +32,6 @@ public class ProfileActivity extends AppCompatActivity {
         String phoneNumber = user.getPhoneNumber();
         String emailAddress = user.getEmailAddress();
         String address = user.getAddress();
-        orders = user.getOrderHistory();
-
 
         final TextView username = (TextView) findViewById(R.id.username);
         String welcomeUser = "Welcome, " + userName+".";

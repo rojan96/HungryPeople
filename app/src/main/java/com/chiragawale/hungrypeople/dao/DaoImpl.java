@@ -1,12 +1,16 @@
 package com.chiragawale.hungrypeople.dao;
 
+import android.content.Context;
 import android.util.Log;
 
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.chiragawale.hungrypeople.data.model.Business;
 import com.chiragawale.hungrypeople.data.model.FoodItem;
 import com.chiragawale.hungrypeople.data.model.Order;
@@ -37,46 +41,8 @@ public class DaoImpl implements Dao {
     @Override
     public User getUserData(String userID) {
         //Dummy Data
-        final ArrayList<String> orders = new ArrayList<String>();
-        orders.add("12345");
-        orders.add("12346");
-        orders.add("12347");
-        orders.add("12348");
-        User Jane = new User("JD", "Jane", "Doe", "3343343344", "jd@email.com", "Ghar", orders);
-//        String djangoEndpoint = "";
-//        final ArrayList <User> userData = new ArrayList<User>();
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                        JSONObject result = response.getJSONObject("User");
-//                        String userName = result.getString("userName");
-//                        String firstName = result.getString("firstName");
-//                        String lastName = result.getString("lastName");
-//                        String phoneNumber = result.getString("phoneNumber");
-//                        String emailAddress = result.getString("emailAddress");
-//                        String address = result.getString("address");
-//                        JSONArray orderHistory = result.getJSONArray("orderHistory");
-//                        ArrayList<String> orderHistoryIDs = new ArrayList<String>();
-//                        for (int j = 0; j<orderHistory.length(); j++) {
-//                            JSONObject order = orderHistory.getJSONObject(j);
-//                            String orderId = order.getString("orderId");
-//                            orderHistoryIDs.add(orderId);
-//                        }
-//                        userData.add(new User(userName, firstName, lastName, phoneNumber, emailAddress, address, orderHistoryIDs));
-//
-//
-//                } catch (JSONException e) {
-//                    Log.e("HP", "Json error", e);
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError e) {
-//                Log.e("HP", "User list error" + e.getMessage());
-//                Log.e("HP", userDataList.toString());
-//            }
-//        });
+        User Jane = new User("JD", "Jane", "Doe", true,"JD SHOP","Ghar","3343343344", "jd@email.com", "9-10", "pasal" );
+
         return Jane;
     }
 
@@ -95,48 +61,41 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public ArrayList<User> getUserList() {
+    public ArrayList<User> getUserList(Context context) {
 
         final ArrayList<User> userDataList = new ArrayList<User>();
 
         //Dummy Data
-        final ArrayList<String> orders = new ArrayList<String>();
-        orders.add("12345");
-        orders.add("12346");
-        orders.add("12347");
-        orders.add("12348");
-        userDataList.add(new User("rojan", "Rojan", "Maharjan", "3344921559", "rojanm874@gmail.com", "NFranklin", orders));
-        userDataList.add(new User("chirag", "Chirag", "Awale", "3344921560", "chirag@gmail.com", "NFranklin", orders));
-        userDataList.add(new User("Smit", "Smit", "Shrestha", "3344921561", "smit@gmail.com", "NFranklin", orders));
 
-
-        return loadAPIList(userDataList);
+        return loadAPIList(userDataList, context);
 
     }
 
-    public ArrayList<User>  loadAPIList(final ArrayList<User> userDataList) {
+    public ArrayList<User>  loadAPIList(final ArrayList<User> userDataList, Context context) {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
         String djangoEndpoint = BASE_API + BUSINESS;
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONObject>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(JSONArray response) {
                 try {
-                    JSONArray results = response.getJSONArray("Users");
+                    JSONArray results = response;
                     for (int i = 0; i < results.length(); i++) {
                         JSONObject result = results.getJSONObject(i);
-                        String userName = result.getString("userName");
-                        String firstName = result.getString("firstName");
-                        String lastName = result.getString("lastName");
-                        String phoneNumber = result.getString("phoneNumber");
-                        String emailAddress = result.getString("emailAddress");
-                        String address = result.getString("address");
-                        JSONArray orderHistory = result.getJSONArray("orderHistory");
-                        ArrayList<String> orderHistoryIDs = new ArrayList<String>();
-                        for (int j = 0; j<orderHistory.length(); i++){
-                            JSONObject order = orderHistory.getJSONObject(j);
-                            String orderId = order.getString("orderId");
-                            orderHistoryIDs.add(orderId);
-                        }
-                        userDataList.add(new User(userName, firstName, lastName, phoneNumber, emailAddress, address, orderHistoryIDs));
+                        String userName = result.getString("username");
+                        String firstName = result.getString("first_name");
+                        String lastName = result.getString("last_name");
+                        Boolean iscustomer = result.getBoolean("iscustomer");
+                        String businessName = result.getString("business_name");
+                        String address = result.getString("full_address");
+                        String phoneNumber = result.getString("phone_number");
+                        String emailAddress = result.getString("email_address");
+                        String openHours = result.getString("open_hours");
+                        String businessAddress = result.getString("business_address");
+
+//
+                        userDataList.add(new User(userName, firstName, lastName, iscustomer, businessName, address, phoneNumber, emailAddress, openHours, businessAddress));
+//                        Log.e("HP", userDataList.toString());
                     }
 
                 } catch (JSONException e) {
@@ -147,9 +106,10 @@ public class DaoImpl implements Dao {
             @Override
             public void onErrorResponse(VolleyError e) {
                 Log.e("HP", "User list error" + e.getMessage());
-                Log.e("HP", userDataList.toString());
+
             }
         });
+        requestQueue.add(request);
         return userDataList;
     }
 
