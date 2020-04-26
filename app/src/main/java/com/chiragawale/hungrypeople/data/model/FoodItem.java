@@ -2,15 +2,35 @@ package com.chiragawale.hungrypeople.data.model;
 
 public class FoodItem {
     private String foodItemID;
+    private String user_id;
     private String foodName;
     private String foodPrice;
     private String foodDescription;
+    private String tags;
 
-    public FoodItem(String foodItemID, String foodName, String foodPrice, String foodDescription) {
+    public FoodItem(String foodItemID, String user_id, String foodName, String foodPrice, String foodDescription, String tags) {
         this.foodItemID = foodItemID;
+        this.user_id = user_id;
         this.foodName = foodName;
         this.foodPrice = foodPrice;
         this.foodDescription = foodDescription;
+        this.tags = tags;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     public String getFoodItemID() {

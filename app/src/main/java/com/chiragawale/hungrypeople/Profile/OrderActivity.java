@@ -23,5 +23,8 @@ public class OrderActivity extends AppCompatActivity {
         nameTextView.setText(name);
 
         App.dao.getUserList(getApplicationContext());
+        App.dao.getUserOrderList(getApplicationContext());
+        App.dao.getUserOrderList(getApplicationContext());
+        App.dao.getFoodItemList(getApplicationContext());
     }
 }

@@ -9,11 +9,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.chiragawale.hungrypeople.data.model.Business;
 import com.chiragawale.hungrypeople.data.model.FoodItem;
 import com.chiragawale.hungrypeople.data.model.Order;
+import com.chiragawale.hungrypeople.data.model.OrderItem;
 import com.chiragawale.hungrypeople.data.model.User;
 
 import org.json.JSONArray;
@@ -55,9 +55,135 @@ public class DaoImpl implements Dao {
         return null;
     }
 
+
+
     @Override
-    public ArrayList<Order> getUserOrderList(String userID) {
-        return null;
+    public ArrayList<Order> getUserOrderList(Context context) {
+        final ArrayList<Order> orderList = new ArrayList<Order>();
+
+        return loadOrderList(orderList, context);
+
+    }
+
+    @Override
+    public ArrayList<Order> loadOrderList(final ArrayList<Order> userOrderList, Context context) {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String djangoEndpoint = BASE_API + ORDER;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    JSONArray results = response;
+                    for (int i = 0; i < results.length(); i++) {
+                        JSONObject result = results.getJSONObject(i);
+                        String id = result.getString("id");
+                        String user_id = result.getString("user_id");
+                        String business_id = result.getString("business_id");
+                        String order_receive_method = result.getString("order_receive_method");
+                        String pickup_time = result.getString("pickup_time");
+                        String placed_time = result.getString("placed_time");
+
+                        userOrderList.add(new Order(id, user_id, business_id, order_receive_method, pickup_time, placed_time));
+//                        Log.e("HP", userDataList.toString());
+                    }
+
+                } catch (JSONException e) {
+                    Log.e("HP", "Json error", e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                Log.e("HP", "User list error" + e.getMessage());
+
+            }
+        });
+        requestQueue.add(request);
+        return userOrderList;
+    }
+
+    @Override
+    public ArrayList<OrderItem> getOrderItemList(Context context) {
+
+        final ArrayList<OrderItem> userOrderList = new ArrayList<OrderItem>();
+
+        return loadOrderItemList(userOrderList, context);
+    }
+
+    @Override
+    public ArrayList<OrderItem> loadOrderItemList(final ArrayList<OrderItem> userOrderList, Context context) {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String djangoEndpoint = BASE_API + ORDERITEM;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    JSONArray results = response;
+                    for (int i = 0; i < results.length(); i++) {
+                        JSONObject result = results.getJSONObject(i);
+                        String order_id = result.getString("order_id");
+                        String food_name = result.getString("food_name");
+                        String food_price = result.getString("food_price");
+
+                        userOrderList.add(new OrderItem(order_id, food_name, food_price));
+//                        Log.e("HP", userDataList.toString());
+                    }
+
+                } catch (JSONException e) {
+                    Log.e("HP", "Json error", e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                Log.e("HP", "User list error" + e.getMessage());
+
+            }
+        });
+        requestQueue.add(request);
+        return userOrderList;
+    }
+
+    @Override
+    public ArrayList<FoodItem> getFoodItemList(Context context) {
+        final ArrayList<FoodItem> foodItemArrayList = new ArrayList<>();
+        return loadFoodItemList(foodItemArrayList, context);
+    }
+
+    @Override
+    public ArrayList<FoodItem> loadFoodItemList(final ArrayList<FoodItem> foodItemArrayList, Context context) {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String djangoEndpoint = BASE_API + FOOD;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    JSONArray results = response;
+                    for (int i = 0; i < results.length(); i++) {
+                        JSONObject result = results.getJSONObject(i);
+                        String id = result.getString("id");
+                        String user_id = result.getString("user_id");
+                        String food_name = result.getString("food_name");
+                        String food_price = result.getString("food_price");
+                        String description = result.getString("description");
+                        String tags = result.getString("tags");
+                        foodItemArrayList.add(new FoodItem(id, user_id, food_name, food_price, description, tags));
+
+                    }
+
+                } catch (JSONException e) {
+                    Log.e("HP", "Json error", e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                Log.e("HP", "User list error" + e.getMessage());
+
+            }
+        });
+        requestQueue.add(request);
+        return foodItemArrayList;
     }
 
     @Override
@@ -67,11 +193,13 @@ public class DaoImpl implements Dao {
 
         //Dummy Data
 
-        return loadAPIList(userDataList, context);
+        return loadUserList(userDataList, context);
 
     }
 
-    public ArrayList<User>  loadAPIList(final ArrayList<User> userDataList, Context context) {
+
+
+    public ArrayList<User> loadUserList(final ArrayList<User> userDataList, Context context) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String djangoEndpoint = BASE_API + BUSINESS;
@@ -113,6 +241,7 @@ public class DaoImpl implements Dao {
         return userDataList;
     }
 
+
     /*
            ORDER RELATED METHODS
     */
@@ -122,27 +251,29 @@ public class DaoImpl implements Dao {
 
     }
 
+
+
     @Override
     public  ArrayList<Business> getBusinessList() {
-        String djangoEndpoint = "";
-        final ArrayList<Business> businessDataList = new ArrayList<Business>();
-
-        //Dummy Data
-        final ArrayList<String> orders = new ArrayList<String>();
-        orders.add("12345");
-        orders.add("12346");
-        orders.add("12347");
-        orders.add("12348");
-
-        final ArrayList<FoodItem> menu = new ArrayList<FoodItem>();
-        menu.add(new FoodItem("1","MoMo","5.99", "Mitho"));
-        menu.add(new FoodItem("2","Bhat","7.99", "Atti Mitho"));
-        menu.add(new FoodItem("3","Chowmein","4.99", "Thikkai Mitho"));
-        menu.add(new FoodItem("4","Chowmeinwe","4.99", "Thikkai Mitho al"));
-
-        businessDataList.add(new Business("1", "Rojan", "3344921559", "rojanm874@gmail.com", "NFranklin", menu, orders));
-        businessDataList.add(new Business("2", "Chirag", "3344921560", "chirag@gmail.com", "NFranklin", menu, orders));
-        businessDataList.add(new Business("3", "Smit",  "3344921561", "smit@gmail.com", "NFranklin", menu, orders));
+//        String djangoEndpoint = "";
+//        final ArrayList<Business> businessDataList = new ArrayList<Business>();
+//
+//        //Dummy Data
+//        final ArrayList<String> orders = new ArrayList<String>();
+//        orders.add("12345");
+//        orders.add("12346");
+//        orders.add("12347");
+//        orders.add("12348");
+//
+//        final ArrayList<FoodItem> menu = new ArrayList<FoodItem>();
+//        menu.add(new FoodItem("1","MoMo","5.99", "Mitho"));
+//        menu.add(new FoodItem("2","Bhat","7.99", "Atti Mitho"));
+//        menu.add(new FoodItem("3","Chowmein","4.99", "Thikkai Mitho"));
+//        menu.add(new FoodItem("4","Chowmeinwe","4.99", "Thikkai Mitho al"));
+//
+//        businessDataList.add(new Business("1", "Rojan", "3344921559", "rojanm874@gmail.com", "NFranklin", menu, orders));
+//        businessDataList.add(new Business("2", "Chirag", "3344921560", "chirag@gmail.com", "NFranklin", menu, orders));
+//        businessDataList.add(new Business("3", "Smit",  "3344921561", "smit@gmail.com", "NFranklin", menu, orders));
 
 //        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONObject>() {
 //            @Override
@@ -180,7 +311,7 @@ public class DaoImpl implements Dao {
 //                Log.e("HP", userDataList.toString());
 //            }
 //        });
-        return businessDataList;
+        return null;
     }
 
 
