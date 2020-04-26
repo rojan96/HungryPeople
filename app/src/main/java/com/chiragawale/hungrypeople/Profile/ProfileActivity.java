@@ -48,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
         homeAddress.setText(address);
 
         recyclerView = findViewById(R.id.recycler_view);
-        adapter = new OrderAdapter();
+        adapter = new OrderAdapter(App.dao.getOrderItemList(getApplicationContext()));
         layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setAdapter(adapter);

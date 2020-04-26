@@ -10,7 +10,12 @@
     android:foreground="?android:attr/selectableItemBackground">
 
     <TextView
-        android:id="@+id/order_row_text_view"
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tv_price"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
