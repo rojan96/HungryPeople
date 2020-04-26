@@ -39,4 +39,5 @@ dependencies {
 
     implementation 'com.github.iammert:MultiSearchView:0.1'
     implementation files('libs/stringsearch-2.2.jar')
+    implementation 'com.carteasy.v1.lib:carteasy:0.0.6'
 }
