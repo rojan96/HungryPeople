@@ -4,12 +4,15 @@ import android.content.Context;
 import android.util.Log;
 
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.chiragawale.hungrypeople.Profile.OrderAdapter;
 import com.chiragawale.hungrypeople.data.model.Business;
 import com.chiragawale.hungrypeople.data.model.FoodItem;
 import com.chiragawale.hungrypeople.data.model.Order;
@@ -30,9 +33,17 @@ public class DaoImpl implements Dao {
     final String ORDERITEM  = "orderitem/";
     final String FOOD  = "food/";
 
+    private static ArrayList<User> globalUserList = new ArrayList<>();
     /*
             USER RELATED METHODS
      */
+
+
+    @Override
+    public ArrayList<User> getGlobalList(Context context) {
+        return globalUserList;
+    }
+
     @Override
     public void addUser() {
 
@@ -104,14 +115,14 @@ public class DaoImpl implements Dao {
 
     @Override
     public ArrayList<OrderItem> getOrderItemList(Context context) {
-
-        final ArrayList<OrderItem> userOrderList = new ArrayList<OrderItem>();
-
-        return loadOrderItemList(userOrderList, context);
+        ArrayList<OrderItem> userOrderItemList = new ArrayList<OrderItem>();
+//        userOrderItemList = loadOrderItemList( context);
+        return userOrderItemList;
     }
 
     @Override
-    public ArrayList<OrderItem> loadOrderItemList(final ArrayList<OrderItem> userOrderList, Context context) {
+    public ArrayList<OrderItem> loadOrderItemList(Context context, final OrderAdapter adapter) {
+        final ArrayList<OrderItem> userOrderList = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String djangoEndpoint = BASE_API + ORDERITEM;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONArray>() {
@@ -124,11 +135,13 @@ public class DaoImpl implements Dao {
                         String order_id = result.getString("order_id");
                         String food_name = result.getString("food_name");
                         String food_price = result.getString("food_price");
-
+                        Log.e("Order item", order_id + "order item");
                         userOrderList.add(new OrderItem(order_id, food_name, food_price));
 //                        Log.e("HP", userDataList.toString());
                     }
-
+                    adapter.setOrderItems(userOrderList);
+                    adapter.notifyDataSetChanged();
+                    Log.e("notify", "Notifying data set changed");
                 } catch (JSONException e) {
                     Log.e("HP", "Json error", e);
                 }
@@ -224,8 +237,9 @@ public class DaoImpl implements Dao {
 //
                         userDataList.add(new User(userName, firstName, lastName, iscustomer, businessName, address, phoneNumber, emailAddress, openHours, businessAddress));
 //                        Log.e("HP", userDataList.toString());
-                    }
 
+                    }
+                    globalUserList = userDataList;
                 } catch (JSONException e) {
                     Log.e("HP", "Json error", e);
                 }

@@ -1,6 +1,7 @@
 package com.chiragawale.hungrypeople.Profile;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
+public class OrderAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout containerView;
         public TextView tv_name,tv_price;
@@ -26,7 +27,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             super(view);
             tv_name = view.findViewById(R.id.tv_name);
             tv_price = view.findViewById(R.id.tv_price);
-
+            containerView = view.findViewById(R.id.order_row);
             containerView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
@@ -39,10 +40,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         }
     }
 
-    private List<OrderItem> orderItem;
+    private List<OrderItem> orderItems;
 
     public OrderAdapter(List<OrderItem> orderItem) {
-        this.orderItem = orderItem;
+        this.orderItems = orderItem;
+        Log.e(":Adapter", orderItem.size() + " asd");
+    }
+
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     @NonNull
@@ -53,15 +60,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        String current = orderItem.get(position).getFoodName();
-        holder.tv_name.setText(orderItem.get(position).getFoodName());
-        holder.tv_price.setText(orderItem.get(position).getFoodPrice());
-        holder.containerView.setTag(current);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ((OrderViewHolder) holder).tv_name.setText(orderItems.get(position).getFoodName());
+        ((OrderViewHolder) holder).tv_price.setText(orderItems.get(position).getFoodPrice());
     }
+
 
     @Override
     public int getItemCount() {
-        return orderItem.size();
+        return orderItems.size();
     }
 }

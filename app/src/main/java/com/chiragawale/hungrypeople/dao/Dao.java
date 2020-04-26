@@ -2,6 +2,9 @@ package com.chiragawale.hungrypeople.dao;
 
 import android.content.Context;
 
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.chiragawale.hungrypeople.Profile.OrderAdapter;
 import com.chiragawale.hungrypeople.data.model.Business;
 import com.chiragawale.hungrypeople.data.model.FoodItem;
 import com.chiragawale.hungrypeople.data.model.Order;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 
 public interface Dao {
     //User related methods
+    public ArrayList<User> getGlobalList(Context context);
     void addUser();
     public ArrayList<User> loadUserList(final ArrayList<User> userDataList, Context context);
     User getUserData(String userID);
@@ -29,7 +33,7 @@ public interface Dao {
     void createNewOrder(String userID, String businessID, ArrayList<FoodItem> orderItems);
     ArrayList<OrderItem> getOrderItemList(Context context);
     public ArrayList<Order> loadOrderList(final ArrayList<Order> userOrderList, Context context);
-    public ArrayList<OrderItem> loadOrderItemList(final ArrayList<OrderItem> userOrderList, Context context);
+    public ArrayList<OrderItem> loadOrderItemList(Context context, OrderAdapter adapter);
 
 
 
