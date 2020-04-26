@@ -32,7 +32,9 @@ public class CartDaoImpl implements CartDao {
 
     @Override
     public void removeItemFromCart(String id, Context context) {
-
+        Carteasy cs = new Carteasy();
+        Log.e("cssss", id);
+        cs.RemoveId(id,context);
     }
 
     @Override
