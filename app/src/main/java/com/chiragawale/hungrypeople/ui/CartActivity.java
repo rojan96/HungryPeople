@@ -22,5 +22,6 @@ public class CartActivity extends AppCompatActivity {
 
         mAdapter = new CartAdapter(getApplicationContext(),App.cartDao.getAllItemsFromCart(getApplicationContext()));
         recyclerView.setAdapter(mAdapter);
+
     }
 }
