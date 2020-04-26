@@ -9,25 +9,33 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.chiragawale.hungrypeople.App;
 import com.chiragawale.hungrypeople.Home.Item;
 import com.chiragawale.hungrypeople.R;
+import com.chiragawale.hungrypeople.dao.Dao;
+import com.chiragawale.hungrypeople.data.model.Business;
 import com.ramotion.foldingcell.FoldingCell;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-class FoldingCellListAdapter extends ArrayAdapter<Item> {
+class FoldingCellListAdapter extends ArrayAdapter<Business> {
 
     private HashSet<Integer> unfoldedIndexes = new HashSet<>();
     private View.OnClickListener defaultRequestBtnClickListener;
     private Context mContext;
-    private List<Item> mObjects;
+    private ArrayList<Business> mObjects;
+    private  ArrayList<Business> mAllBusiness;
 
-    public FoldingCellListAdapter(Context context, List<Item> objects){
-        super(context,0,objects);
+    public FoldingCellListAdapter(Context context, ArrayList<Business> allBusiness){
+        super(context,0,allBusiness);
         this.mContext=context;
-        this.mObjects=objects;
+        this.mAllBusiness=allBusiness;
+
+        //allBusiness= App.dao.getBusinessList();
     }
 
 
@@ -35,7 +43,7 @@ class FoldingCellListAdapter extends ArrayAdapter<Item> {
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         // get item for selected view
-        Item item = getItem(position);
+        Business business=mAllBusiness.get(position);
         // if cell is exists - reuse it, if not - create the new one from resource
         FoldingCell cell = (FoldingCell) convertView;
         ViewHolder viewHolder;
@@ -44,10 +52,11 @@ class FoldingCellListAdapter extends ArrayAdapter<Item> {
             LayoutInflater vi = LayoutInflater.from(getContext());
             cell = (FoldingCell) vi.inflate(R.layout.cell, parent, false);
             // binding view parts to view holder
-            viewHolder.name = cell.findViewById(R.id.title_name);
-            viewHolder.address = cell.findViewById(R.id.title_address);
-            viewHolder.hours = cell.findViewById(R.id.title_hours);
-            viewHolder.category = cell.findViewById(R.id.title_category);
+            viewHolder.businessName = cell.findViewById(R.id.title_business_name);
+            viewHolder.address = cell.findViewById(R.id.title_business_address);
+            viewHolder.businessID = cell.findViewById(R.id.title_business_id);
+            viewHolder.emailAddress = cell.findViewById(R.id.title_business_email);
+            viewHolder.phoneNumber=cell.findViewById(R.id.title_phone);
             viewHolder.contentRequestBtn = cell.findViewById(R.id.content_request_btn);
             cell.setTag(viewHolder);
         } else {
@@ -60,18 +69,20 @@ class FoldingCellListAdapter extends ArrayAdapter<Item> {
             viewHolder = (ViewHolder) cell.getTag();
         }
 
-        if (null == item)
+        if (null == business)
             return cell;
 
         // bind data from selected element to view through view holder
-        viewHolder.name.setText(item.getName());
-        viewHolder.address.setText(item.getAddress());
-        viewHolder.hours.setText(item.getHours());
-        viewHolder.category.setText(item.getCategory());
+        viewHolder.businessName.setText(business.getBusinessName());
+        viewHolder.address.setText(business.getAddress());
+        viewHolder.businessID.setText(business.getBusinessID());
+        viewHolder.emailAddress.setText(business.getEmailAddress());
+        viewHolder.phoneNumber.setText(business.getPhoneNumber());
+
 
         // set custom btn handler for list item from that item
-        if (item.getRequestBtnClickListener() != null) {
-            viewHolder.contentRequestBtn.setOnClickListener(item.getRequestBtnClickListener());
+        if (business.getRequestBtnClickListener() != null) {
+            viewHolder.contentRequestBtn.setOnClickListener(business.getRequestBtnClickListener());
         } else {
             // (optionally) add "default" handler if no handler found in item
             viewHolder.contentRequestBtn.setOnClickListener(defaultRequestBtnClickListener);
@@ -106,11 +117,13 @@ class FoldingCellListAdapter extends ArrayAdapter<Item> {
 
     // View lookup cache
     private static class ViewHolder {
-        TextView name;
+        TextView businessName;
         TextView contentRequestBtn;
+        TextView businessID;
+        TextView phoneNumber;
+        TextView emailAddress;
         TextView address;
-        TextView category;
-        TextView hours;
+
 
     }
 }

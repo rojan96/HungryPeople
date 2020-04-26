@@ -2,10 +2,7 @@ package com.chiragawale.hungrypeople.dao;
 
 import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+
 import com.chiragawale.hungrypeople.data.model.Business;
 import com.chiragawale.hungrypeople.data.model.FoodItem;
 import com.chiragawale.hungrypeople.data.model.Order;
@@ -111,7 +108,7 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public ArrayList<Business> getBusinessList() {
+    public  ArrayList<Business> getBusinessList() {
         String djangoEndpoint = "";
         final ArrayList<Business> businessDataList = new ArrayList<Business>();
 

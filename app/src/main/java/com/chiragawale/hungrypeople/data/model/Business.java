@@ -1,5 +1,7 @@
 package com.chiragawale.hungrypeople.data.model;
 
+import android.view.View;
+
 import java.util.ArrayList;
 
 public class Business {
@@ -11,6 +13,7 @@ public class Business {
 
     ArrayList<FoodItem> menu = new ArrayList<FoodItem>();
     ArrayList<String> orderHistory = new ArrayList<String>();
+    private View.OnClickListener requestBtnClickListener;
 
     public Business(String businessID, String businessName, String phoneNumber, String emailAddress, String address, ArrayList<FoodItem> menu, ArrayList<String> orderHistory) {
         this.businessID = businessID;
@@ -77,4 +80,13 @@ public class Business {
     public void setOrderHistory(ArrayList<String> orderHistory) {
         this.orderHistory = orderHistory;
     }
+
+    public View.OnClickListener getRequestBtnClickListener() {
+        return requestBtnClickListener;
+    }
+
+    public void setRequestBtnClickListener(View.OnClickListener requestBtnClickListener) {
+        this.requestBtnClickListener = requestBtnClickListener;
+    }
+
 }
