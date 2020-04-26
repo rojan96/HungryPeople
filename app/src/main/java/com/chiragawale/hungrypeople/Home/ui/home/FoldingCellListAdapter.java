@@ -1,6 +1,7 @@
 package com.chiragawale.hungrypeople.Home.ui.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.chiragawale.hungrypeople.Home.Item;
 import com.chiragawale.hungrypeople.R;
 import com.chiragawale.hungrypeople.dao.Dao;
 import com.chiragawale.hungrypeople.data.model.Business;
+import com.chiragawale.hungrypeople.data.model.FoodItem;
 import com.ramotion.foldingcell.FoldingCell;
 
 import org.w3c.dom.Text;
@@ -87,11 +89,17 @@ class FoldingCellListAdapter extends ArrayAdapter<Business> {
 
         viewHolder.contentBusinessID.setText(business.getBusinessID());
         viewHolder.contentBusinessName.setText(business.getBusinessName());
-        viewHolder.contentMenu1.setText(business.getMenu().get(0).getFoodName());
-        viewHolder.contentMenu2.setText(business.getMenu().get(1).getFoodName());
-        viewHolder.contentMenu3.setText(business.getMenu().get(2).getFoodName());
-        viewHolder.contentMenu4.setText(business.getMenu().get(3).getFoodName());
 
+       
+        try {
+            viewHolder.contentMenu1.setText(business.getMenu().get(0).getFoodName());
+            viewHolder.contentMenu2.setText(business.getMenu().get(1).getFoodName());
+            viewHolder.contentMenu3.setText(business.getMenu().get(2).getFoodName());
+            viewHolder.contentMenu4.setText(business.getMenu().get(8).getFoodName());
+        }
+        catch(Exception e){
+            Log.e("folding",e.getMessage());
+        }
         // set custom btn handler for list item from that item
         if (business.getRequestBtnClickListener() != null) {
             viewHolder.contentRequestBtn.setOnClickListener(business.getRequestBtnClickListener());
