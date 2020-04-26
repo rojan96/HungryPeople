@@ -46,4 +46,13 @@
         android:layout_below="@+id/et_multisearch"
         tools:context=".listview.MainActivity" />
 
+    <Button
+        android:id="@+id/profileButton"
+        android:layout_width="70dp"
+        android:layout_alignParentEnd="true"
+        android:text="User"
+        android:textSize="10dp"
+        android:layout_margin="10dp"
+        />
+
 </RelativeLayout>

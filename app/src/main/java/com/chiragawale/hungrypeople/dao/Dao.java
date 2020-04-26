@@ -8,6 +8,8 @@ import com.chiragawale.hungrypeople.data.model.User;
 import java.util.ArrayList;
 
 public interface Dao {
+    //General methods
+    public ArrayList<User> loadAPIList(final ArrayList<User> userDataList);
 
     //User related methods
     void addUser();

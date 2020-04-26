@@ -3,6 +3,10 @@ package com.chiragawale.hungrypeople.dao;
 import android.util.Log;
 
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.chiragawale.hungrypeople.data.model.Business;
 import com.chiragawale.hungrypeople.data.model.FoodItem;
 import com.chiragawale.hungrypeople.data.model.Order;
@@ -15,6 +19,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class DaoImpl implements Dao {
+
+    final String BASE_API = "https://hungrypeople.ue.r.appspot.com/api/";
+    final String ORDER  = "order/";
+    final String BUSINESS  = "business/";
+    final String ORDERITEM  = "orderitem/";
+    final String FOOD  = "food/";
+
     /*
             USER RELATED METHODS
      */
@@ -98,46 +109,49 @@ public class DaoImpl implements Dao {
         userDataList.add(new User("chirag", "Chirag", "Awale", "3344921560", "chirag@gmail.com", "NFranklin", orders));
         userDataList.add(new User("Smit", "Smit", "Shrestha", "3344921561", "smit@gmail.com", "NFranklin", orders));
 
-//        String djangoEndpoint = "";
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    JSONArray results = response.getJSONArray("Users");
-//                    for (int i = 0; i < results.length(); i++) {
-//                        JSONObject result = results.getJSONObject(i);
-//                        String userName = result.getString("userName");
-//                        String firstName = result.getString("firstName");
-//                        String lastName = result.getString("lastName");
-//                        String phoneNumber = result.getString("phoneNumber");
-//                        String emailAddress = result.getString("emailAddress");
-//                        String address = result.getString("address");
-//                        JSONArray orderHistory = result.getJSONArray("orderHistory");
-//                        ArrayList<String> orderHistoryIDs = new ArrayList<String>();
-//                        for (int j = 0; j<orderHistory.length(); i++){
-//                            JSONObject order = orderHistory.getJSONObject(j);
-//                            String orderId = order.getString("orderId");
-//                            orderHistoryIDs.add(orderId);
-//                        }
-//
-//                        userDataList.add(new User(userName, firstName, lastName, phoneNumber, emailAddress, address, orderHistoryIDs));
-//
-//                    }
-//
-//                } catch (JSONException e) {
-//                    Log.e("HP", "Json error", e);
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError e) {
-//                Log.e("HP", "User list error" + e.getMessage());
-//                Log.e("HP", userDataList.toString());
-//            }
-//        });
-        return userDataList;
+
+        return loadAPIList(userDataList);
+
     }
 
+    public ArrayList<User>  loadAPIList(final ArrayList<User> userDataList) {
+        String djangoEndpoint = BASE_API + BUSINESS;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, djangoEndpoint, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray results = response.getJSONArray("Users");
+                    for (int i = 0; i < results.length(); i++) {
+                        JSONObject result = results.getJSONObject(i);
+                        String userName = result.getString("userName");
+                        String firstName = result.getString("firstName");
+                        String lastName = result.getString("lastName");
+                        String phoneNumber = result.getString("phoneNumber");
+                        String emailAddress = result.getString("emailAddress");
+                        String address = result.getString("address");
+                        JSONArray orderHistory = result.getJSONArray("orderHistory");
+                        ArrayList<String> orderHistoryIDs = new ArrayList<String>();
+                        for (int j = 0; j<orderHistory.length(); i++){
+                            JSONObject order = orderHistory.getJSONObject(j);
+                            String orderId = order.getString("orderId");
+                            orderHistoryIDs.add(orderId);
+                        }
+                        userDataList.add(new User(userName, firstName, lastName, phoneNumber, emailAddress, address, orderHistoryIDs));
+                    }
+
+                } catch (JSONException e) {
+                    Log.e("HP", "Json error", e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                Log.e("HP", "User list error" + e.getMessage());
+                Log.e("HP", userDataList.toString());
+            }
+        });
+        return userDataList;
+    }
 
     /*
            ORDER RELATED METHODS
