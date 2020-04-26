@@ -38,6 +38,12 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="phone">"Phone"</string>
+    <string name="user_name">Username:</string>
+    <string name="first_name">"Firstname: " </string>
     <string name="last_name">"Lastname: "</string>
+    <string name="phonenumber">"Phone Number: "</string>
+    <string name="emailaddress">"Email: "</string>
+    <string name="homeaddress">"Address: "</string>
+    <string name="your_past_orders">"Your Past Orders"</string>
 
 </resources>
